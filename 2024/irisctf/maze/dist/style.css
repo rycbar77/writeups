@@ -1,0 +1,74 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  color: #f2f2f2;
+  /* background: url("../img/bg_darker.png"); */
+  text-align: center;
+}
+
+header {
+  height: 80px;
+  background-color: #4caf50;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h1 {
+  color: #fff;
+  font-size: 24px;
+  margin: 0;
+  padding: 0 20px;
+}
+
+header {
+  font-family: cursive;
+}
+
+nav {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  margin: 0 10px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.game-canvas-container {
+  margin: 20px auto;
+  min-width: 600px;
+  min-height: 400px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  background-color: #000;
+  display: inline-block;
+}
+
+footer {
+  height: 40px;
+  background-color: #4caf50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer p {
+  color: #fff;
+  margin: 0;
+}
