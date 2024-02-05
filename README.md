@@ -9,3 +9,8 @@
 |    RE    | the-maze |
 |    RE    | cloudvm  |
 
+### dicectf-quals
+
+| Category |   Name   |
+| :------: | :------: |
+|   PWN    | hop      |
