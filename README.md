@@ -23,3 +23,10 @@ Place-holder, waiting for disclosure
 | Category |   Name   |
 | :------: | :------: |
 |   PWN    | hop      |
+
+### lactf
+
+| Category |   Name   |
+| :------: | :------: |
+|    RE    | glottem  |
+|   PWN    | flipma   |
