@@ -30,3 +30,9 @@ Place-holder, waiting for disclosure
 | :------: | :------: |
 |    RE    | glottem  |
 |   PWN    | flipma   |
+
+### bi0sctf
+
+| Category |   Name   |
+| :------: | :------: |
+|   PWN    | ezv8 revenge   |
