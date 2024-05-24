@@ -11,8 +11,6 @@
 
 ### RealWorld CTF
 
-Place-holder, waiting for disclosure
-
 | Category |   Name   |
 | :------: | :------: |
 |    RW    | Router4  |
@@ -36,3 +34,16 @@ Place-holder, waiting for disclosure
 | Category |   Name   |
 | :------: | :------: |
 |   PWN    | ezv8 revenge   |
+
+### plaidctf
+
+| Category |    Name    |
+| :------: | :--------: |
+|   PWN    | maglev (🩸) |
+
+### htb-bussiness
+
+| Category |  Name   |
+| :------: | :-----: |
+|   PWN    | pyrrhus |
+
