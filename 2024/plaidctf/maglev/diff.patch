@@ -1,0 +1,90 @@
+diff --git a/src/d8/d8.cc b/src/d8/d8.cc
+index 585c37b16e1..2dc9cec9d99 100644
+--- a/src/d8/d8.cc
++++ b/src/d8/d8.cc
+@@ -3303,6 +3303,7 @@ Local<FunctionTemplate> Shell::CreateNodeTemplates(
+ 
+ Local<ObjectTemplate> Shell::CreateGlobalTemplate(Isolate* isolate) {
+   Local<ObjectTemplate> global_template = ObjectTemplate::New(isolate);
++  if (/* DISABLES CODE */ (false)) {
+   global_template->Set(Symbol::GetToStringTag(isolate),
+                        String::NewFromUtf8Literal(isolate, "global"));
+   global_template->Set(isolate, "version",
+@@ -3325,8 +3326,10 @@ Local<ObjectTemplate> Shell::CreateGlobalTemplate(Isolate* isolate) {
+                        FunctionTemplate::New(isolate, ReadLine));
+   global_template->Set(isolate, "load",
+                        FunctionTemplate::New(isolate, ExecuteFile));
++  }
+   global_template->Set(isolate, "setTimeout",
+                        FunctionTemplate::New(isolate, SetTimeout));
++  if (/* DISABLES CODE */ (false)) {
+   // Some Emscripten-generated code tries to call 'quit', which in turn would
+   // call C's exit(). This would lead to memory leaks, because there is no way
+   // we can terminate cleanly then, so we need a way to hide 'quit'.
+@@ -3350,7 +3353,7 @@ Local<ObjectTemplate> Shell::CreateGlobalTemplate(Isolate* isolate) {
+     global_template->Set(isolate, "async_hooks",
+                          Shell::CreateAsyncHookTemplate(isolate));
+   }
+-
++  }
+   return global_template;
+ }
+ 
+diff --git a/src/maglev/maglev-graph-builder.cc b/src/maglev/maglev-graph-builder.cc
+index 197dcba916b..aba8eb86354 100644
+--- a/src/maglev/maglev-graph-builder.cc
++++ b/src/maglev/maglev-graph-builder.cc
+@@ -6835,6 +6835,14 @@ ReduceResult MaglevGraphBuilder::TryReduceArrayPrototypePush(
+   ValueNode* new_array_length_smi =
+       AddNewNode<CheckedSmiIncrement>({old_array_length_smi});
+ 
++  ValueNode* length_field_smi;
++  GET_VALUE_OR_ABORT(length_field_smi,
++                     GetSmiValue(AddNewNode<LoadTaggedField>({receiver},
++                     JSArray::kLengthOffset)));
++  ValueNode* length_field = AddNewNode<UnsafeSmiUntag>({length_field_smi});
++  ValueNode* new_length_field_smi =
++      AddNewNode<CheckedSmiIncrement>({length_field_smi});
++
+   ValueNode* elements_array = BuildLoadElements(receiver);
+   ValueNode* elements_array_length =
+       AddNewNode<UnsafeSmiUntag>({AddNewNode<LoadTaggedField>(
+@@ -6849,17 +6857,16 @@ ReduceResult MaglevGraphBuilder::TryReduceArrayPrototypePush(
+             {elements_array, receiver, old_array_length, elements_array_length},
+             kind);
+ 
+-    AddNewNode<StoreTaggedFieldNoWriteBarrier>({receiver, new_array_length_smi},
++    AddNewNode<StoreTaggedFieldNoWriteBarrier>({receiver, new_length_field_smi},
+                                                JSArray::kLengthOffset);
+ 
+     // Do the store
+     if (IsDoubleElementsKind(kind)) {
+       AddNewNode<StoreFixedDoubleArrayElement>(
+-          {writable_elements_array, old_array_length, value});
++          {writable_elements_array, length_field, value});
+     } else {
+       DCHECK(IsSmiElementsKind(kind) || IsObjectElementsKind(kind));
+-      BuildStoreFixedArrayElement(writable_elements_array, old_array_length,
+-                                  value);
++      BuildStoreFixedArrayElement(writable_elements_array, length_field, value);
+     }
+     return ReduceResult::Done();
+   };
+@@ -6872,7 +6879,7 @@ ReduceResult MaglevGraphBuilder::TryReduceArrayPrototypePush(
+     sub_graph.Bind(&*do_return);
+   }
+   RecordKnownProperty(receiver, broker()->length_string(), new_array_length_smi,
+-                      false, compiler::AccessMode::kStore);
++                      false, compiler::AccessMode::kLoad);
+   return new_array_length_smi;
+ }
+ 
+@@ -7042,7 +7049,7 @@ ReduceResult MaglevGraphBuilder::TryReduceArrayPrototypePop(
+   sub_graph.Bind(&*do_return);
+   RecordKnownProperty(receiver, broker()->length_string(),
+                       sub_graph.get(var_new_array_length), false,
+-                      compiler::AccessMode::kStore);
++                      compiler::AccessMode::kLoad);
+   return sub_graph.get(var_value);
+ }
+ 

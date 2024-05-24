@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo "Base 64:"
+read data
+FN=$(mktemp -p /scripts --suffix=.js)
+echo $data | base64 -d > $FN && md5sum $FN | cut -f 1 -d' ' && /home/ctf/d8 --allow-natives-syntax $FN
