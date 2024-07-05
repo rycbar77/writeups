@@ -47,3 +47,21 @@
 | :------: | :-----: |
 |   PWN    | pyrrhus |
 
+### xctf-final
+
+| Category | Name |
+| :------: | :--: |
+|   PWN    | 0ob  |
+
+### google-ctf
+
+| Category | Name |
+| :------: | :--: |
+|   PWN    | heat |
+
+### r3ctf
+
+| Category |  Name   |
+| :------: | :-----: |
+|   PWN    | hackcam |
+
