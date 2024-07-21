@@ -65,3 +65,9 @@
 | :------: | :-----: |
 |   PWN    | hackcam |
 
+### hitconctf
+
+| Category |  Name  |
+| :------: | :----: |
+|   PWN    | V8 SBX |
+
