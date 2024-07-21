@@ -44,7 +44,7 @@ arr2=arr;
 f();
 ```
 
-Regarding the V8 sandbox escape method, I utilized a previously discovered technique. I may disclose it when possible. 
+Regarding the V8 sandbox escape method, I utilized a previously discovered technique. Check [here](https://github.com/rycbar77/V8-Sandbox-Escape-via-Regexp) for more details. 
 
 ## POC
 
