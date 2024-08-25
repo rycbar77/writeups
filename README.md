@@ -15,7 +15,6 @@
 | :------: | :------: |
 |    RW    | Router4  |
 
-
 ### dicectf-quals
 
 | Category |   Name   |
@@ -71,3 +70,8 @@
 | :------: | :----: |
 |   PWN    | V8 SBX |
 
+### sekaictf
+
+| Category |  Name  |
+| :------: | :----: |
+|   PWN    | ContextReducer |
